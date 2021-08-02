@@ -11,7 +11,7 @@ pipeline{
     stages{
         stage("SCM"){
             steps{
-                git "https://github.com/Reddy-hub-sudo/spring-petclinic.git"
+                git branch: 'main', credentialsId: 'git_credentials_id', url: 'https://github.com/Reddy-hub-sudo/spring-petclinic.git'
             }
         }
         stage("BUILD"){
