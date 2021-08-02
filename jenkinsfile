@@ -1,0 +1,16 @@
+pipeline{
+    agent any
+    stages{
+        stage("git"){
+            steps {
+                sh "git clone https://github.com/Reddy-hub-sudo/spring-petclinic.git"
+
+            }
+        }
+        stage("Maven Build Code"){
+            steps {
+                sh "mvn clean package"
+            }
+        }
+    }
+}
