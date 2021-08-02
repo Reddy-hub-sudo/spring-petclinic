@@ -1,7 +1,9 @@
 pipeline{
     agent any
     environment{
+        imagename = "vijendaraws/spring-petclinic"
         registryCredential = "dockerhub_credential_id"
+        dockerImage = " "
     }
     stages{
         stage("git"){
@@ -16,16 +18,18 @@ pipeline{
         }
         stage("Docker Build Image"){
             steps{
-                sh "docker image build -t spring ."
+                script{
+                    dockerImage = docker.build imagename
+                }
             }
         }
-        stage("Docker push"){
+        stage("Image push to hub"){
             steps{
                 script {
                     docker.withRegistry( " ", registryCredential )
-
+                    dockerImage.push("$BUILD_NUMBER")
+                    dockerImage.push("latest")
                 }
-                sh "docker push image spring:latest"
             }
         }
     }
