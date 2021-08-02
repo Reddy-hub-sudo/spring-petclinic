@@ -21,8 +21,8 @@ pipeline{
         }
         stage("push to hub"){
             steps{
-                withCredentials([string(credentialsId: 'PASS_ID', variable: 'passwd')]) {
-                 sh "docker login -u vijendaraws -p ${passwd}"
+                withCredentials([string(credentialsId: 'TRY_ID', variable: 'TRY')]) {
+                    sh "docker login -u vijendaraws -p ${TRY}"
                 }
                 sh "docker push spring:1.0"
                 
