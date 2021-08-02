@@ -42,7 +42,7 @@ pipeline{
                 emailext (
                     subject: "started job",
                     body: "welcome",
-                    recipientProviders: "vijendaraws@gmail.com"
+                    recipientProviders: ""
                 )
             }
         }
