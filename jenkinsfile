@@ -41,7 +41,7 @@ pipeline{
     }
     post{
         always{
-            emailext attachLog: true, body: 'check for errors', postsendScript: 'hi..post send script', presendScript: 'hi pre-send  script', recipientProviders: [developers(), buildUser()], replyTo: 'vijendaraws@gmail.com', subject: 'status of pipeline', to: 'vijendaraws@gmail.com'
+            mail bcc: '', body: 'welcome', cc: '', from: '', replyTo: '', subject: 'pipeline status', to: 'vijendaraws@gmail.com'
         }
     }
 }
