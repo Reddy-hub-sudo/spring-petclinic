@@ -1,6 +1,8 @@
 pipeline{
     agent any
-    def buildNumber = BUILD_NUMBER
+    environment {
+        buildNumber = BUILD_NUMBER
+    }
     triggers {
         cron("0 * * * *")
     }
