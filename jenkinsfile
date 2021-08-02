@@ -41,9 +41,7 @@ pipeline{
     }
     post{
         always{
-            mail to: "vijendaraws@gmail.com"
-            subject: "status of pipeline: ${currentBuild.fullDisplayName}"
-            body: "${env.BUILD_URL} has result ${currentBuild.result}"
+            emailext attachLog: true, body: 'check for errors', postsendScript: 'hi..post send script', presendScript: 'hi pre-send  script', recipientProviders: [developers(), buildUser()], replyTo: 'vijendaraws@gmail.com', subject: 'status of pipeline', to: 'vijendaraws@gmail.com'
         }
     }
 }
