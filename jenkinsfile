@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        registryCredential = dockerhub_credential_id
+        registryCredential = "dockerhub_credential_id"
     }
     stages{
         stage("git"){
@@ -21,7 +21,7 @@ pipeline{
         }
         stage("Docker push"){
             steps{
-                sh {
+                script {
                     docker.withRegistry( " ", registryCredential ){
                         "docker image push spring:latest"
                     }
