@@ -1,37 +1,47 @@
 pipeline{
     agent any
     environment {
-        registry = "vijendaraws/spring-petclinic"
-        registryCredential = "dockerhub_credential_id"
         dockerImage = " "
+        registry = "vijendaraws/spring:2.0"
+        registryCredential = "dockerhub_credential_id"
+    }
+    triggers {
+        cron("0 * * * *")
     }
     stages{
-        stage("git"){
-            steps {
-                git branch: 'main', credentialsId: 'git_credentials_id', url: 'https://github.com/Reddy-hub-sudo/spring-petclinic.git'
+        stage("SCM"){
+            steps{
+                git "https://github.com/Reddy-hub-sudo/spring-petclinic.git"
             }
         }
-        stage("Maven Build Code"){
-            steps {
+        stage("BUILD"){
+            steps{
                 sh "mvn clean package"
             }
         }
-        stage("Docker Build Image"){
-            steps {
+        stage("BUILD DOCKER IMAGE"){
+            steps{
                 script {
                     dockerImage = docker.build registry
                 }
+                
             }
         }
-        stage("Image push to hub"){
-            steps {
-                script {
-                    docker.withRegistry( "", registryCredential ){
-                      dockerImage.push("$BUILD_NUMBER")
-                     dockerImage.push()  
+        stage("Push to Dockerhub"){
+            steps{
+              script {
+                  docker.withRegistry( "", registryCredential ) {
+                      dockerImage.push()
                     }
                 }
             }
         }
+        stage("POSTBUILD"){
+            steps{
+                 junit "target/surefire-reports/*.xml"
+                 archiveArtifacts "target/*.jar"
+            }
+        }
+
     }
 }
