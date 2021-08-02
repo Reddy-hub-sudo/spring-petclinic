@@ -22,10 +22,10 @@ pipeline{
         stage("Docker push"){
             steps{
                 script {
-                    docker.withRegistry( " ", registryCredential ){
-                        "docker image push spring:latest"
-                    }
+                    docker.withRegistry( " ", registryCredential )
+
                 }
+                sh "docker push image spring:latest"
             }
         }
     }
