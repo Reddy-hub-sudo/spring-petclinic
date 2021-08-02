@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("git"){
             steps {
-                sh "git clone https://github.com/Reddy-hub-sudo/spring-petclinic.git"
+                sh "git url https://github.com/Reddy-hub-sudo/spring-petclinic.git"
 
             }
         }
