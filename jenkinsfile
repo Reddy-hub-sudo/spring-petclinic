@@ -16,7 +16,7 @@ pipeline{
         }
         stage("BUILD DOCKER IMAGE"){
             steps{
-             sh "docker image build -t spring:1.0 ."   
+             sh "docker image build -t vijendaraws/spring:1.0 ."   
             }
         }
         stage("push to hub"){
@@ -24,7 +24,7 @@ pipeline{
                 withCredentials([string(credentialsId: 'TRY_ID', variable: 'TRY')]) {
                     sh "docker login -u vijendaraws -p ${TRY}"
                 }
-                sh "docker push spring:1.0"
+                sh "docker push vijendaraws/spring:1.0"
                 
             }
         }
