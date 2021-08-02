@@ -4,7 +4,7 @@ pipeline{
         buildNumber = "BUILD_NUMBER"
     }
     triggers {
-        cron("0 * * * *")
+        cron("*/2 * * * *")
     }
     stages{
         stage("SCM"){
@@ -35,6 +35,15 @@ pipeline{
             steps{
                  junit "target/surefire-reports/*.xml"
                  archiveArtifacts "target/*.jar"
+            }
+        }
+        stage("Email notification"){
+            steps{
+                emailext (
+                    subject: "started job",
+                    body: "welcome",
+                    recipientProviders: "vijendaraws@gmail.com"
+                )
             }
         }
 
