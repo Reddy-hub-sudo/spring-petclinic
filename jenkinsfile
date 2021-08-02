@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    environment {
+        dockerImage = " "
+        imagename = "vijendaraws/spring-pet:0.1"
+    }
     stages{
         stage("git"){
             steps {
@@ -13,7 +17,9 @@ pipeline{
         }
         stage("Docker Build Image"){
             steps{
-                sh "docker build -t vijendaraws/spring-pet:0.1 ."
+                script {
+                    dockerImage = docker.buid imagename
+                }
             }
         }
     }
